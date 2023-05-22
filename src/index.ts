@@ -71,6 +71,9 @@ app.post('/api/subscribe', async (c) => {
     const resultSubscribe = await fetch(
       `${c.env.MAILTRAIN_PUBLIC_ROOT_PATH}/api/subscribe/${mailingListCID}?access_token=${c.env.MAILTRAIN_API_KEY}`,
       {
+        headers:{
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
         body: new URLSearchParams({
           EMAIL: email,
           REQUIRE_CONFIRMATION: 'false',
@@ -169,6 +172,9 @@ app.post('/api/contact', async (c) => {
     const result = await fetch(
       `${c.env.MAILTRAIN_PUBLIC_ROOT_PATH}/api/templates/${c.env.MAILTRAIN_CONTACT_TEMPLATE_CID}/send?access_token=${c.env.MAILTRAIN_API_KEY}`,
       {
+        headers:{
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
         body: new URLSearchParams({
           EMAIL: c.env.CONTACT_EMAIL,
           SUBJECT: 'Contact form message from ' + escape(name),
@@ -177,6 +183,12 @@ app.post('/api/contact', async (c) => {
         method: 'POST',
       }
     );
+
+    console.log(await result.text(), {
+      EMAIL: c.env.CONTACT_EMAIL,
+      SUBJECT: 'Contact form message from ' + escape(name),
+      ...tags,
+    });
 
     if (result.status != 200) {
       console.log(
