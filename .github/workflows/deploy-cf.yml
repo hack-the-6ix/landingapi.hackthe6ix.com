@@ -30,5 +30,7 @@ jobs:
           environment: "production"
           secrets: |
             MAILTRAIN_API_KEY
+            CAPTCHA_SECRET_KEY
         env:
           MAILTRAIN_API_KEY: ${{ secrets.MAILTRAIN_API_KEY }}
+          CAPTCHA_SECRET_KEY: ${{ secrets.CAPTCHA_SECRET_KEY }}

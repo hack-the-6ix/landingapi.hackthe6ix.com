@@ -11,7 +11,7 @@ CONTACT_EMAIL = ""
 
 # Secrets:
 MAILTRAIN_API_KEY = ""
-
+CAPTCHA_SECRET_KEY = ""
 
 [env.production]
 name = "hackthe6ix-landing-worker"

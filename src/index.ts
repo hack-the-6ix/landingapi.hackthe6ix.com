@@ -10,6 +10,7 @@ type Env = {
   MAILTRAIN_CONTACT_TEMPLATE_CID: string;
   MAILTRAIN_MAILING_LIST_ID: string;
   CONTACT_EMAIL: string;
+  CAPTCHA_SECRET_KEY: string;
 };
 
 const app = new Hono<{ Bindings: Env }>();
@@ -108,11 +109,36 @@ app.post('/api/contact', async (c) => {
   const body = await c.req.json();
 
   try {
-    const { name, email, message } = body;
+    const { name, email, message, captchaToken } = body;
 
     console.log(
       `[${new Date()}] New contact form message: ${JSON.stringify(body)}`
     );
+
+    if(!captchaToken) {
+      c.status(400);
+      return c.text('Invalid request! No captcha token specified.');
+    }
+
+    const ip = c.req.headers.get('CF-Connecting-IP')!!;
+
+    // Validate the token by calling the "/siteverify" API.
+    let verifyTokenData = new FormData();
+    verifyTokenData.append('secret', c.env.CAPTCHA_SECRET_KEY);
+    verifyTokenData.append('response', captchaToken);
+    verifyTokenData.append('remoteip', ip);
+
+    const verifyTokenResponse = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
+      body: verifyTokenData,
+      method: 'POST',
+    });
+
+    const verifyTokenResult = await verifyTokenResponse.json() as any;
+
+    if(!verifyTokenResult.success) {
+      c.status(400);
+      return c.text("Invalid Captcha token!");
+    }
 
     if (!name || !email || !validator.validate(email) || !message) {
       console.log(
