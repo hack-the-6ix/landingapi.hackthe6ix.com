@@ -1,0 +1,28 @@
+name = "hackthe6ix-landing-worker-dev"
+main = "src/index.ts"
+compatibility_date = "2023-05-21"
+
+[build]
+command = "npm run build"
+
+[vars]
+MAILTRAIN_PUBLIC_ROOT_PATH = ""
+MAILTRAIN_API_KEY = ""
+MAILTRAIN_MAILING_LIST_ID = ""
+MAILTRAIN_CONTACT_TEMPLATE_CID = ""
+CONTACT_EMAIL = ""
+
+
+[env.production]
+name = "hackthe6ix-landing-worker"
+routes = [
+    { pattern = "landingapi.hackthe6ix.com", custom_domain = true }
+]
+
+
+[env.production.vars]
+MAILTRAIN_PUBLIC_ROOT_PATH = ""
+MAILTRAIN_API_KEY = ""
+MAILTRAIN_MAILING_LIST_ID = ""
+MAILTRAIN_CONTACT_TEMPLATE_CID = ""
+CONTACT_EMAIL = ""
