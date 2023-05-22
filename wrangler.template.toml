@@ -6,11 +6,14 @@ compatibility_date = "2023-05-21"
 command = "npm run build"
 
 [vars]
-MAILTRAIN_PUBLIC_ROOT_PATH = ""
-MAILTRAIN_API_KEY = ""
+# Development should use .dev.vars
+MAILTRAIN_PUBLIC_ROOT_PATH = "http" # No trailing slash
 MAILTRAIN_MAILING_LIST_ID = ""
 MAILTRAIN_CONTACT_TEMPLATE_CID = ""
 CONTACT_EMAIL = ""
+
+# Secrets:
+MAILTRAIN_API_KEY = ""
 
 
 [env.production]
@@ -18,11 +21,3 @@ name = "hackthe6ix-landing-worker"
 routes = [
     { pattern = "landingapi.hackthe6ix.com", custom_domain = true }
 ]
-
-
-[env.production.vars]
-MAILTRAIN_PUBLIC_ROOT_PATH = ""
-MAILTRAIN_API_KEY = ""
-MAILTRAIN_MAILING_LIST_ID = ""
-MAILTRAIN_CONTACT_TEMPLATE_CID = ""
-CONTACT_EMAIL = ""
