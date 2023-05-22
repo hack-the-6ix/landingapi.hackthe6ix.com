@@ -13,7 +13,7 @@ jobs:
       - uses: actions/checkout@v2
       - name: Apply Wrangler Configuration
         run: |
-          echo $WRANGLER_FILE_CONTENT >> wrangler.toml
+          echo $WRANGLER_FILE_CONTENT | base64 -d > wrangler.toml
         shell: bash
         env:
           WRANGLER_FILE_CONTENT: ${{secrets.WRANGLER_FILE_CONTENT}}
