@@ -15,8 +15,9 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '18.x'
-      - run: npm ci
-      - name: Apply Wrangler Configuration
+      - name: Install packages
+        run: npm ci
+      - name: Apply Wrangler configuration
         run: |
           echo $WRANGLER_FILE_CONTENT_B64 | base64 -d > wrangler.toml
         shell: bash
