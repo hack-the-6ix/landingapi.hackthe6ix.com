@@ -18,7 +18,7 @@ jobs:
       - name: Install packages
         run: npm ci
       - name: Publish
-        uses: cloudflare/wrangler-action@3.14.1
+        uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CF_API_TOKEN }}
           environment: 'production'
