@@ -1,0 +1,26 @@
+name = "hackthe6ix-landing-worker"
+main = "src/index.ts"
+compatibility_date = "2025-05-05"
+
+[vars]
+# Development should use .dev.vars
+LISTMONK_API_URL = "http://localhost:9000" # No trailing slash
+LISTMONK_SUBSCRIBE_LIST_ID = ""
+LISTMONK_CONTACT_TEMPLATE_ID = ""
+CONTACT_EMAIL = ""
+
+# Secrets:
+LISTMONK_API_USERNAME = ""
+LISTMONK_API_PASSWORD = ""
+CAPTCHA_SECRET_KEY = ""
+
+[env.production]
+routes = [
+    { pattern = "landingapi.hackthe6ix.com", custom_domain = true }
+]
+
+[env.production.vars]
+LISTMONK_API_URL = "https://lists.hackthe6ix.com"
+LISTMONK_SUBSCRIBE_LIST_ID = "11"
+LISTMONK_CONTACT_TEMPLATE_ID = "8"
+CONTACT_EMAIL = "hello@hackthe6ix.com"
