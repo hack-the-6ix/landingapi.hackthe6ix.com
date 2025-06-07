@@ -2,6 +2,8 @@
 
 API service for Hack the 6ix landing page functionality.
 
+**Important**: For the contact endpoint to work, the CONTACT_EMAIL must be added as a subscriber in ListMonk!
+
 ## Endpoints
 
 ### Subscribe to Mailing List
@@ -10,9 +12,10 @@ API service for Hack the 6ix landing page functionality.
 POST /api/subscribe
 ```
 
-Adds an email address to the "Main Web Mailing List" on Mailtrain.
+Adds an email address to the "Main Web Mailing List" on Listmonk.
 
 **Request Body:**
+
 ```json
 {
   "email": "user@example.com"
@@ -20,10 +23,12 @@ Adds an email address to the "Main Web Mailing List" on Mailtrain.
 ```
 
 **Success Response:**
+
 - Status: 200
 - Body: `You have subscribed successfully!`
 
 **Error Responses:**
+
 - 400: Invalid email format
 - 400: Already subscribed
 - 500: Server error
@@ -37,6 +42,7 @@ POST /api/contact
 Sends a message via the contact form. Sends to the hello@hackthe6ix.com contact Google Group.
 
 **Request Body:**
+
 ```json
 {
   "name": "John Doe",
@@ -47,10 +53,12 @@ Sends a message via the contact form. Sends to the hello@hackthe6ix.com contact 
 ```
 
 **Success Response:**
+
 - Status: 200
 - Body: `Your message has been sent!`
 
 **Error Responses:**
+
 - 400: Missing required fields
 - 400: Invalid email format
 - 400: Message length exceeded

@@ -10,27 +10,23 @@ jobs:
     runs-on: ubuntu-latest
     name: Deploy
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Set up Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: '18.x'
+          node-version: '24.x'
       - name: Install packages
         run: npm ci
-      - name: Apply Wrangler configuration
-        run: |
-          echo $WRANGLER_FILE_CONTENT_B64 | base64 -d > wrangler.toml
-        shell: bash
-        env:
-          WRANGLER_FILE_CONTENT_B64: ${{secrets.WRANGLER_FILE_CONTENT_B64}}
       - name: Publish
-        uses: cloudflare/wrangler-action@2.0.0
+        uses: cloudflare/wrangler-action@3.14.1
         with:
           apiToken: ${{ secrets.CF_API_TOKEN }}
-          environment: "production"
+          environment: 'production'
           secrets: |
-            MAILTRAIN_API_KEY
+            LISTMONK_API_USERNAME
+            LISTMONK_API_PASSWORD
             CAPTCHA_SECRET_KEY
         env:
-          MAILTRAIN_API_KEY: ${{ secrets.MAILTRAIN_API_KEY }}
+          LISTMONK_API_USERNAME: ${{ secrets.LISTMONK_API_USERNAME }}
+          LISTMONK_API_PASSWORD: ${{ secrets.LISTMONK_API_PASSWORD }}
           CAPTCHA_SECRET_KEY: ${{ secrets.CAPTCHA_SECRET_KEY }}
