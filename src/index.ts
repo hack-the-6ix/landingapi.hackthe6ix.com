@@ -132,32 +132,32 @@ app.post('/api/subscribe', async (c) => {
     }
 
     // STEP 3: Send opt-in email
-    // const optinResponse = await fetch(
-    //   `${listmonkUrl}/api/subscribers/${subscriber.id}/optin`,
-    //   {
-    //     method: 'POST',
-    //     headers: {
-    //       'Content-Type': 'application/json',
-    //       Authorization: authHeader,
-    //     },
-    //     body: JSON.stringify({}),
-    //   }
-    // );
+    const optinResponse = await fetch(
+      `${listmonkUrl}/api/subscribers/${subscriber.id}/optin`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: authHeader,
+        },
+        body: JSON.stringify({}),
+      }
+    );
 
-    // if (optinResponse.status !== 200) {
-    //   console.log(
-    //     `[${new Date()} - Subscribe] Error: Listmonk error (opt-in) - Request: ${JSON.stringify(
-    //       body
-    //     )}`
-    //   );
-    //   c.status(500);
-    //   return c.text('Mail server failure - please try again later');
-    // }
+    if (optinResponse.status !== 200) {
+      console.log(
+        `[${new Date()} - Subscribe] Error: Listmonk error (opt-in) - Request: ${JSON.stringify(
+          body
+        )}`
+      );
+      c.status(500);
+      return c.text('Mail server failure - please try again later');
+    }
 
-    // return c.text(
-    //   'You have subscribed successfully! Please check your email to confirm your subscription.'
-    // );
-    return c.text('You have subscribed successfully!');
+    return c.text(
+      'You have subscribed successfully! Please check your email to confirm your subscription.'
+    );
+    // return c.text('You have subscribed successfully!');
   } catch (e) {
     console.log(
       `[${new Date()} - Subscribe] Error: ${e} - Request: ${JSON.stringify(
